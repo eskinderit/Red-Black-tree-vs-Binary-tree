@@ -345,9 +345,19 @@ def test_search(File, numberstosearch,rep):
     plt.legend(['Albero binario', 'Albero RN'])
     plt.show()
 
-
+sys.setrecursionlimit(4100)
 
 print(sys.getrecursionlimit())
+
+
+##### INSERT TESTS #####
+
 #test_insert("randomBigDataset.pickle",1 )
+
+
+##### SEARCH TESTS #####
+
+
 #test_search("incrBigDataset.pickle", 20000, 50)
-test_search("randomBigDataset.pickle", 20000, 500)
+#test_search("randomBigDataset.pickle", 20000, 500)
+#test_search("ordBigDataset2.pickle", 40000, 30)
