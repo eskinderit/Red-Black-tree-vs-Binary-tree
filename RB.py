@@ -192,50 +192,6 @@ class BrT:
                 x = x.right
         return x
 
-
-# TODO self e right rotate
-# TODO controllare da else in poi il fixup
-#TODO cancellazione su ABR (Cose' che manca, che non abbiamo fatto a lezione??)
-#TODO cancellazione su ARN non obbligatoria
-#TODO inserimento con fixup
-#TODO test
-
-
-# T=BinaryT()
-#
-# T.insert(4)
-# T.insert(7)
-# T.insert(2)
-# T.insert(6)
-# T.insert(5)
-# T.insert(1)
-# T.insert(7)
-# T.insert(3)
-#
-# print(T.find(10))
-# #print(T.getRoot().getKey())
-# T.InorderTreeWalk(T.root)
-#
-# B = BrVertex(5)
-# B.setColor(5)
-# B.setColor(1)
-# print(B.color)
-# print(B.key)
-
-# print ("prove Alberi RN")
-# OK = BrT()
-#
-#
-# OK.insert(10)
-#
-# print("radice: ", OK.root.key)
-#
-# OK.insert(7)
-# OK.insert(3)
-# OK.PreOrderTreeWalk(OK.root)
-
-# print("radice: ", OK.root.key)
-
 ############################## TESTS START ###############################
 
 # receiving a Tree, inserts a vector of values in it
@@ -261,7 +217,7 @@ def BST_multiple_search(T,num):
 
     start = timer()
     for i in range(0, num):
-        T.find(random.randint(0, 10000))
+        T.find(random.randint(60000, 100000))
     end = timer()
     return end-start
 
@@ -270,7 +226,7 @@ def RBT_multiple_search(T,num):
 
     start = timer()
     for i in range(0, num):
-        T.find(random.randint(0, 10000))
+        T.find(random.randint(60000, 100000))
     end = timer()
     return end-start
 
@@ -343,25 +299,20 @@ def test_search(File, numberstosearch,rep):
     plt.legend(['Albero binario', 'Albero RN'])
     plt.show()
 
-#sys.setrecursionlimit(4100)
-
-print(sys.getrecursionlimit())
-
 
 ################### INSERT TESTS #######################
 
+# AVERAGE CASE
+#test_insert("randomBigDataset.pickle", 50)
 
-test_insert("randomBigDataset.pickle", 50)
+# ORDERED CASE
 #test_insert("incrBigDataset.pickle", 2)    FATTO
-#test_insert("randomSmallDataset", 50)
 
-#TODO random small dataset
+
 
 #################### SEARCH TESTS #####################
 
 # AVERAGE CASE
-
-#test_search("randomBigDataset.pickle", 200000, 10000) FATTO
-
+test_search("randomBigDataset.pickle", 200000, 10)
 # ORDERED CASE
 #test_search("ordBigDataset2.pickle", 4000, 10) FATTO
