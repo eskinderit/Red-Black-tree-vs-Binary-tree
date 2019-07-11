@@ -352,7 +352,7 @@ print(sys.getrecursionlimit())
 
 
 #test_insert("randomBigDataset.pickle", 50)
-test_insert("incrBigDataset.pickle", 10)
+test_insert("incrBigDataset.pickle", 2)
 #test_insert("randomSmallDataset", 50)
 
 #TODO random small dataset
