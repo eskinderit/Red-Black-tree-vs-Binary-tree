@@ -351,7 +351,7 @@ print(sys.getrecursionlimit())
 ################### INSERT TESTS #######################
 
 
-#test_insert("randomBigDataset.pickle", 50)
+test_insert("randomBigDataset.pickle", 50)
 #test_insert("incrBigDataset.pickle", 2)    FATTO
 #test_insert("randomSmallDataset", 50)
 
@@ -361,7 +361,7 @@ print(sys.getrecursionlimit())
 
 # AVERAGE CASE
 
-test_search("randomBigDataset.pickle", 200000, 10000)
+#test_search("randomBigDataset.pickle", 200000, 10000) FATTO
 
 # ORDERED CASE
 #test_search("ordBigDataset2.pickle", 4000, 10) FATTO
