@@ -348,21 +348,20 @@ def test_search(File, numberstosearch,rep):
 print(sys.getrecursionlimit())
 
 
-##### INSERT TESTS #####
+################### INSERT TESTS #######################
 
 
 #test_insert("randomBigDataset.pickle", 50)
-test_insert("incrBigDataset.pickle", 2)
+#test_insert("incrBigDataset.pickle", 2)    FATTO
 #test_insert("randomSmallDataset", 50)
 
 #TODO random small dataset
 
-##### SEARCH TESTS #####
+#################### SEARCH TESTS #####################
 
 # AVERAGE CASE
 
-#test_search("randomBigDataset.pickle", 100000, 5000)
-#TODO strano peak
+test_search("randomBigDataset.pickle", 200000, 10000)
 
 # ORDERED CASE
-#test_search("ordBigDataset2.pickle", 4000, 10)
+#test_search("ordBigDataset2.pickle", 4000, 10) FATTO
