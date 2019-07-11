@@ -50,7 +50,7 @@ class BinaryT:
             self.InorderTreeWalk(x.right)
 
     def findSub(self, x, key):
-        while x is not None:
+        while x is not None and x.key!=key:
             if key < x.key:
                 x = x.left
             else:
@@ -185,7 +185,7 @@ class BrT:
         return self.findSub(self.root, key1)
 
     def findSub(self, x, key):
-        while x != self.NilVertex:
+        while x != self.NilVertex and x.key!=key:
             if key < x.key:
                 x = x.left
             else:
@@ -217,7 +217,7 @@ def BST_multiple_search(T,num):
 
     start = timer()
     for i in range(0, num):
-        T.find(random.randint(60000, 100000))
+        T.find(random.randint(0, 100000))
     end = timer()
     return end-start
 
@@ -226,7 +226,7 @@ def RBT_multiple_search(T,num):
 
     start = timer()
     for i in range(0, num):
-        T.find(random.randint(60000, 100000))
+        T.find(random.randint(0, 100000))
     end = timer()
     return end-start
 
