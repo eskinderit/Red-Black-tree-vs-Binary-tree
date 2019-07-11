@@ -50,14 +50,12 @@ class BinaryT:
             self.InorderTreeWalk(x.right)
 
     def findSub(self, x, key):
-        if x is None:
-            return False
-        elif x.key == key:
-            return True
-        elif key < x.key:
-            return self.findSub(x.left, key)
-        else:
-            return self.findSub(x.right, key)
+        while x is not None:
+            if key < x.key:
+                x = x.left
+            else:
+                x = x.right
+        return x
 
     def find(self, key1):
         return self.findSub(self.root, key1)
@@ -187,14 +185,12 @@ class BrT:
         return self.findSub(self.root, key1)
 
     def findSub(self, x, key):
-        if x is self.NilVertex:
-            return False
-        elif x.key == key:
-            return True
-        elif key < x.key:
-            return self.findSub(x.left, key)
-        else:
-            return self.findSub(x.right, key)
+        while x != self.NilVertex:
+            if key < x.key:
+                x = x.left
+            else:
+                x = x.right
+        return x
 
 
 # TODO self e right rotate
@@ -262,17 +258,19 @@ def RBT_multiple_insert(T,A):
 
 
 def BST_multiple_search(T,num):
+
     start = timer()
     for i in range(0, num):
-        T.find(random.randint(0, 100000))
+        T.find(random.randint(0, 10000))
     end = timer()
     return end-start
 
 
 def RBT_multiple_search(T,num):
+
     start = timer()
     for i in range(0, num):
-        T.find(random.randint(0, 100000))
+        T.find(random.randint(0, 10000))
     end = timer()
     return end-start
 
@@ -345,19 +343,26 @@ def test_search(File, numberstosearch,rep):
     plt.legend(['Albero binario', 'Albero RN'])
     plt.show()
 
-sys.setrecursionlimit(4100)
+#sys.setrecursionlimit(4100)
 
 print(sys.getrecursionlimit())
 
 
 ##### INSERT TESTS #####
 
-#test_insert("randomBigDataset.pickle",1 )
 
+#test_insert("randomBigDataset.pickle", 50)
+test_insert("incrBigDataset.pickle", 10)
+#test_insert("randomSmallDataset", 50)
+
+#TODO random small dataset
 
 ##### SEARCH TESTS #####
 
+# AVERAGE CASE
 
-#test_search("incrBigDataset.pickle", 20000, 50)
-#test_search("randomBigDataset.pickle", 20000, 500)
-#test_search("ordBigDataset2.pickle", 40000, 30)
+#test_search("randomBigDataset.pickle", 100000, 5000)
+#TODO strano peak
+
+# ORDERED CASE
+#test_search("ordBigDataset2.pickle", 4000, 10)
