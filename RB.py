@@ -66,6 +66,15 @@ class BinaryT:
             self.InorderTreeWalk(x.left)
             self.InorderTreeWalk(x.right)
 
+    def maxDepth(self,x):
+        if x is None:
+            return 0
+        else:
+            leftHeight = self.maxDepth(x.left)
+            rightHeight = self.maxDepth(x.right)
+            return max(leftHeight, rightHeight) + 1
+
+
 class BrVertex(BstVertex):
     def __init__(self, key):
         super().__init__(key)
@@ -185,12 +194,21 @@ class BrT:
         return self.findSub(self.root, key1)
 
     def findSub(self, x, key):
-        while x != self.NilVertex and x.key!=key:
+        while x != self.NilVertex and x.key != key:
             if key < x.key:
                 x = x.left
             else:
                 x = x.right
         return x
+
+    def maxDepth(self, x):
+        if x == self.NilVertex:
+            return 0
+        else:
+            leftHeight = self.maxDepth(x.left)
+            rightHeight = self.maxDepth(x.right)
+            return max(leftHeight, rightHeight) + 1
+
 
 ############################## TESTS START ###############################
 
@@ -313,6 +331,22 @@ def test_search(File, numberstosearch,rep):
 #################### SEARCH TESTS #####################
 
 # AVERAGE CASE
-test_search("randomBigDataset.pickle", 200000, 10)
+#test_search("randomBigDataset.pickle", 200000, 10)
 # ORDERED CASE
-#test_search("ordBigDataset2.pickle", 4000, 10) FATTO
+#test_search("ordBigDataset2.pickle", 4000, 10)
+
+
+
+pickle_in = open("decrBigDataset.pickle", "rb")
+Set = pickle.load(pickle_in)
+
+T1 = BinaryT()
+T2 = BrT()
+Set1 = Set.copy()
+print(Set[8])
+
+BST_multiple_insert(T1, Set[9])
+print(T1.maxDepth(T1.root))
+
+RBT_multiple_insert(T2, Set1[9])
+print(T2.maxDepth(T2.root))
