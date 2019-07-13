@@ -53,7 +53,7 @@ def multiple_decr_vect(MultipleNumberVect, step1, multi):
 
 ##################### RANDOM BIG DATA SET #######################
 SavedDataSet = []
-multiple_random_vect(SavedDataSet, 100, 9)
+multiple_random_vect(SavedDataSet, 10000, 10)
 pickle_out = open("randomBigDataset.pickle", "wb")
 pickle.dump(SavedDataSet, pickle_out)
 pickle_out.close()

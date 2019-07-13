@@ -4,6 +4,14 @@ import matplotlib.pyplot as plt
 from timeit import default_timer as timer
 import random
 import sys
+
+def random_vect(B):
+    A=[]
+    for i in range(B+1):
+      A.append(random.randint(1, 800)) #TODO random.seed
+    return A
+
+
 class BstVertex:
     def __init__(self, key):
         self.left = None
@@ -50,7 +58,7 @@ class BinaryT:
             self.InorderTreeWalk(x.right)
 
     def findSub(self, x, key):
-        while x is not None and x.key!=key:
+        while x is not None and x.key != key:
             if key < x.key:
                 x = x.left
             else:
@@ -181,7 +189,7 @@ class BrT:
         if x.right != self.NilVertex:
             x.right.p = y
         x.p = y.p
-        if y.p == self.NilVertex:
+        if y.p.key == self.NilVertex.key:
             self.root=x
         elif y == y.p.left:
             y.p.left = x
@@ -194,7 +202,7 @@ class BrT:
         return self.findSub(self.root, key1)
 
     def findSub(self, x, key):
-        while x != self.NilVertex and x.key != key:
+        while x.key is not None and x.key != key:
             if key < x.key:
                 x = x.left
             else:
@@ -232,21 +240,25 @@ def RBT_multiple_insert(T,A):
 
 
 def BST_multiple_search(T,num):
+    Times = []
+    for i in range(0, len(num)):
 
-    start = timer()
-    for i in range(0, num):
-        T.find(random.randint(0, 100000))
-    end = timer()
-    return end-start
+        start = timer()
+        T.find(random.randint(1, 9000))
+        end = timer()
+        Times.append(end-start)
+    return statistics.mean(Times)
 
 
 def RBT_multiple_search(T,num):
+    Times = []
+    for i in range(0, len(num)):
 
-    start = timer()
-    for i in range(0, num):
-        T.find(random.randint(0, 100000))
-    end = timer()
-    return end-start
+        start = timer()
+        T.find(random.randint(1, 9000))
+        end = timer()
+        Times.append(end-start)
+    return statistics.mean(Times)
 
 
 def test_insert(File, repeat):
@@ -288,19 +300,26 @@ def test_search(File, numberstosearch,rep):
     pickle_in = open(File, "rb")
     Set = pickle.load(pickle_in)
     Set1 = Set.copy()
+   #TODO cambiare sul grafico il numero di elementi
+    T1 = BinaryT()
+    T2 = BrT()
     for j in range(1, len(Set)):
         print("Test: ", File, "Passo: ", j, "/", len(Set))
-        T1=BinaryT()
-        T2=BrT()
         BST_multiple_insert(T1, Set[j])
-        RBT_multiple_insert(T2, Set1[j])
+        RBT_multiple_insert(T2, Set[j])
         BI=[]
         RI=[]
-        for k in (0, rep+1):
-            BI.append(BST_multiple_search(T1, numberstosearch + 1))
-            RI.append(RBT_multiple_search(T2, numberstosearch + 1))
+        print("Altezza albero binario:", T1.maxDepth(T1.root))
+        print("Altezza albero r-n:", T2.maxDepth(T2.root))
+        rand_search = random_vect(numberstosearch)
+        for k in range(0, rep+1):
+
+            BI.append(BST_multiple_search(T1, rand_search))
+            RI.append(RBT_multiple_search(T2, rand_search))
         BSTSearchGraph.append(statistics.mean(BI))
         RBTGraph.append(statistics.mean(RI))
+        print("Tempo ABR: ",statistics.mean(BI))
+        print("Tempo ARN:", statistics.mean(RI))
 
     Set = []
     ElementsNum = []
@@ -309,19 +328,25 @@ def test_search(File, numberstosearch,rep):
     for z in range(1, len(Set)):
         A = Set[z]
         ElementsNum.append(len(A))
-    plt.plot(ElementsNum, BSTSearchGraph)
-    plt.plot(ElementsNum, RBTGraph)
-    plt.xlabel('Numero di elementi')
-    plt.ylabel('Tempo di esecuzione')
+    plt.plot(ElementsNum, BSTSearchGraph,'--bo')
+    plt.plot(ElementsNum, RBTGraph,'--ro')
+    plt.xlabel('Numero di elementi (N)')
+    plt.ylabel('Tempo di esecuzione (t)')
     plt.title('Ricerca: Albero Binario vs Albero RN')
     plt.legend(['Albero binario', 'Albero RN'])
+
+    plt.grid(True)
+    plt.xticks(ElementsNum)
+
+
+
     plt.show()
 
 
 ################### INSERT TESTS #######################
 
 # AVERAGE CASE
-#test_insert("randomBigDataset.pickle", 50)
+#test_insert("randomBigDataset.pickle", 1)
 
 # ORDERED CASE
 #test_insert("incrBigDataset.pickle", 2)    FATTO
@@ -331,22 +356,22 @@ def test_search(File, numberstosearch,rep):
 #################### SEARCH TESTS #####################
 
 # AVERAGE CASE
-#test_search("randomBigDataset.pickle", 200000, 10)
+#test_search("decrBigDataset.pickle", 20000, 10)
 # ORDERED CASE
-#test_search("ordBigDataset2.pickle", 4000, 10)
+test_search("randomBigDataset.pickle", 4000, 200)
 
 
-
-pickle_in = open("decrBigDataset.pickle", "rb")
-Set = pickle.load(pickle_in)
-
-T1 = BinaryT()
-T2 = BrT()
-Set1 = Set.copy()
-print(Set[8])
-
-BST_multiple_insert(T1, Set[9])
-print(T1.maxDepth(T1.root))
-
-RBT_multiple_insert(T2, Set1[9])
-print(T2.maxDepth(T2.root))
+#
+# pickle_in = open("decrBigDataset.pickle", "rb")
+# Set = pickle.load(pickle_in)
+#
+# T1 = BinaryT()
+# T2 = BrT()
+# Set1 = Set.copy()
+#
+#
+# BST_multiple_insert(T1, Set[9])
+# print(T1.maxDepth(T1.root))
+#
+# RBT_multiple_insert(T2, Set1[9])
+# print(T2.maxDepth(T2.root))
